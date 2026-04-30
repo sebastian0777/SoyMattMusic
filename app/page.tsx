@@ -1,10 +1,28 @@
 ﻿"use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const asset = (path: string) => `.${path}`;
+const LazySpotifyFrame = dynamic(
+  () =>
+    Promise.resolve(function SpotifyFrame() {
+      return (
+        <iframe
+          title="Spotify Soy Matt"
+          src="https://open.spotify.com/embed/artist/70fHdUStdmfMbQmPF7IuHO?utm_source=generator&theme=0"
+          width="100%"
+          height="380"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          className="rounded-2xl"
+        />
+      );
+    }),
+  { ssr: false }
+);
 
 const tracks = [
   {
@@ -221,15 +239,7 @@ export default function Home() {
           <p className="mt-3 text-white/70">Stream directo y tracks destacados.</p>
           <div className="mt-10 grid gap-6 lg:grid-cols-[1.2fr_1fr]">
             <div className="rounded-3xl border border-white/15 bg-white/5 p-3 shadow-glow backdrop-blur-xl">
-              <iframe
-                title="Spotify Soy Matt"
-                src="https://open.spotify.com/embed/artist/70fHdUStdmfMbQmPF7IuHO?utm_source=generator&theme=0"
-                width="100%"
-                height="380"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                className="rounded-2xl"
-              />
+              <LazySpotifyFrame />
             </div>
             <div className="space-y-4">
               {tracks.map((track, idx) => (
@@ -402,7 +412,7 @@ export default function Home() {
               src={featuredClip}
               controls
               playsInline
-              preload="metadata"
+              preload="none"
               className="h-[340px] w-full rounded-xl object-cover sm:h-[420px]"
             />
           </div>
@@ -428,7 +438,7 @@ export default function Home() {
         <p className="text-xs uppercase tracking-[0.28em] text-white/45">
           Crafted by{" "}
           <a
-            href="https://weweb.site"
+            href="https://sebastian0777.github.io/WeWeb/"
             target="_blank"
             rel="noreferrer"
             className="font-bold text-white/70 transition hover:text-white"
