@@ -62,7 +62,7 @@ const featuredClip = asset("/reels/reel-4.mp4");
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
-  const [introPhase, setIntroPhase] = useState<"logo" | "flash">("logo");
+  const [introPhase, setIntroPhase] = useState<"logo" | "flashIn" | "flashOut">("logo");
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const [soundOn, setSoundOn] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -80,14 +80,18 @@ export default function Home() {
   const glowY = useTransform(scrollYProgress, [0, 1], [0, -140]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), isMobile ? 1850 : 2600);
+    const timer = setTimeout(() => setLoading(false), isMobile ? 2050 : 2600);
     return () => clearTimeout(timer);
   }, [isMobile]);
 
   useEffect(() => {
     if (!loading || !isMobile) return;
-    const toFlash = setTimeout(() => setIntroPhase("flash"), 1180);
-    return () => clearTimeout(toFlash);
+    const toFlashIn = setTimeout(() => setIntroPhase("flashIn"), 1200);
+    const toFlashOut = setTimeout(() => setIntroPhase("flashOut"), 1520);
+    return () => {
+      clearTimeout(toFlashIn);
+      clearTimeout(toFlashOut);
+    };
   }, [loading, isMobile]);
 
   useEffect(() => {
@@ -208,16 +212,16 @@ export default function Home() {
               <motion.h1
                 className="relative z-10 flex w-full items-center justify-center gap-1 px-6 text-center font-display text-4xl font-extrabold tracking-[0.1em] sm:gap-3 sm:text-5xl md:text-8xl"
                 initial={{ scale: 0.85, opacity: 0 }}
-                animate={isMobile ? { scale: 1, opacity: [0, 1, 1] } : { scale: 1, opacity: [0, 1, 1, 0] }}
-                transition={isMobile ? { duration: 1.3, times: [0, 0.24, 1], ease: "easeOut" } : { duration: 2.1, times: [0, 0.18, 0.62, 0.78], ease: "easeInOut" }}
+                animate={isMobile ? { scale: [0.96, 1, 1], opacity: [0, 1, 1] } : { scale: 1, opacity: [0, 1, 1, 0] }}
+                transition={isMobile ? { duration: 1.35, times: [0, 0.22, 1], ease: "easeOut" } : { duration: 2.1, times: [0, 0.18, 0.62, 0.78], ease: "easeInOut" }}
               >
                 <span>SOY</span>
                 <motion.div
                   initial={{ scale: 0.9 }}
-                  animate={isMobile ? { scale: [1, 1.2, 1.7, 4.8] } : { scale: [1, 1.16, 1.55, 6.8, 10.5] }}
+                  animate={isMobile ? { scale: [1, 1.08, 1.28, 1.72, 2.25] } : { scale: [1, 1.16, 1.55, 6.8, 10.5] }}
                   transition={
                     isMobile
-                      ? { duration: 1.3, times: [0, 0.3, 0.68, 1], ease: ["easeOut", "easeOut", "easeIn"] }
+                      ? { duration: 1.35, times: [0, 0.22, 0.5, 0.78, 1], ease: ["easeOut", "easeOut", "easeInOut", "easeIn"] }
                       : { duration: 2.35, times: [0, 0.24, 0.52, 0.8, 1], ease: ["easeOut", "easeOut", "easeInOut", "easeIn"] }
                   }
                   className="ml-1 -mr-2 sm:ml-4 sm:-mr-6"
@@ -235,7 +239,7 @@ export default function Home() {
               <motion.p
                 className="relative z-10 mt-5 max-w-[92vw] px-6 text-center text-[11px] uppercase tracking-[0.22em] text-white/75 sm:mt-6 sm:max-w-xl sm:text-sm sm:tracking-[0.3em] md:text-base md:tracking-[0.35em]"
                 animate={isMobile ? { opacity: [0, 1, 1] } : { opacity: [0, 1, 1, 0] }}
-                transition={isMobile ? { duration: 1.3, times: [0, 0.28, 1], ease: "easeOut" } : { duration: 2.1, times: [0, 0.2, 0.62, 0.78], ease: "easeInOut" }}
+                transition={isMobile ? { duration: 1.35, times: [0, 0.24, 1], ease: "easeOut" } : { duration: 2.1, times: [0, 0.2, 0.62, 0.78], ease: "easeInOut" }}
               >
                 Esto no es solo musica, es una historia
               </motion.p>
@@ -247,12 +251,12 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={
               isMobile
-                ? { opacity: introPhase === "flash" ? 1 : 0 }
+                ? { opacity: introPhase === "flashIn" ? 1 : introPhase === "flashOut" ? 0.4 : 0 }
                 : { opacity: [0, 0, 1, 1, 0] }
             }
             transition={
               isMobile
-                ? { duration: 0.2, ease: "easeOut" }
+                ? { duration: introPhase === "flashOut" ? 0.22 : 0.26, ease: "easeInOut" }
                 : { duration: 2.6, times: [0, 0.58, 0.72, 0.9, 1], ease: "easeInOut" }
             }
           />
