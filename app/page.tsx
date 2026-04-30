@@ -62,6 +62,7 @@ const featuredClip = asset("/reels/reel-4.mp4");
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
+  const [introPhase, setIntroPhase] = useState<"logo" | "flash">("logo");
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const [soundOn, setSoundOn] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -82,6 +83,12 @@ export default function Home() {
     const timer = setTimeout(() => setLoading(false), isMobile ? 2300 : 2600);
     return () => clearTimeout(timer);
   }, [isMobile]);
+
+  useEffect(() => {
+    if (!loading || !isMobile) return;
+    const toFlash = setTimeout(() => setIntroPhase("flash"), 1350);
+    return () => clearTimeout(toFlash);
+  }, [loading, isMobile]);
 
   useEffect(() => {
     const move = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY });
@@ -184,55 +191,69 @@ export default function Home() {
         <motion.section
           className="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-black"
           initial={{ opacity: 1 }}
-          animate={{ opacity: [1, 1, 0] }}
-          transition={{ duration: 2.6, times: [0, 0.88, 1], ease: "easeInOut" }}
+          animate={isMobile ? { opacity: 1 } : { opacity: [1, 1, 0] }}
+          transition={isMobile ? { duration: 0 } : { duration: 2.6, times: [0, 0.88, 1], ease: "easeInOut" }}
           exit={{ opacity: 0 }}
         >
-          <motion.div
-            className="absolute h-72 w-72 rounded-full bg-neonViolet/35 blur-3xl"
-            animate={{ scale: [1, 1.18, 1], opacity: [0.35, 0.8, 0.35] }}
-            transition={{ repeat: Infinity, duration: 2.6 }}
-          />
-          <motion.h1
-            className="relative z-10 flex w-full items-center justify-center gap-1 px-6 text-center font-display text-4xl font-extrabold tracking-[0.1em] sm:gap-3 sm:text-5xl md:text-8xl"
-            initial={{ scale: 0.85, opacity: 0 }}
-            animate={isMobile ? { scale: 1, opacity: [0, 1, 1, 0] } : { scale: 1, opacity: [0, 1, 1, 0] }}
-            transition={isMobile ? { duration: 1.95, times: [0, 0.24, 0.62, 0.78], ease: "easeInOut" } : { duration: 2.1, times: [0, 0.18, 0.62, 0.78], ease: "easeInOut" }}
-          >
-            <span>SOY</span>
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={isMobile ? { scale: [1, 1.2, 1.7, 4.8, 7.6] } : { scale: [1, 1.16, 1.55, 6.8, 10.5] }}
-              transition={
-                isMobile
-                  ? { duration: 2.05, times: [0, 0.24, 0.5, 0.8, 1], ease: ["easeOut", "easeOut", "easeInOut", "easeIn"] }
-                  : { duration: 2.35, times: [0, 0.24, 0.52, 0.8, 1], ease: ["easeOut", "easeOut", "easeInOut", "easeIn"] }
-              }
-              className="ml-1 -mr-2 sm:ml-4 sm:-mr-6"
-            >
-              <Image
-                src={asset("/intro-1.png")}
-                alt="M de Soy Matt"
-                width={280}
-                height={280}
-                className="h-32 w-32 object-contain mix-blend-screen brightness-125 saturate-150 drop-shadow-[0_0_28px_rgba(255,190,120,0.98)] sm:h-36 sm:w-36 md:h-52 md:w-52"
-              />
-            </motion.div>
-            <span>ATT</span>
-          </motion.h1>
-          <motion.p
-            className="relative z-10 mt-5 max-w-[92vw] px-6 text-center text-[11px] uppercase tracking-[0.22em] text-white/75 sm:mt-6 sm:max-w-xl sm:text-sm sm:tracking-[0.3em] md:text-base md:tracking-[0.35em]"
-            animate={isMobile ? { opacity: [0, 1, 1, 0] } : { opacity: [0, 1, 1, 0] }}
-            transition={isMobile ? { duration: 1.95, times: [0, 0.24, 0.62, 0.78], ease: "easeInOut" } : { duration: 2.1, times: [0, 0.2, 0.62, 0.78], ease: "easeInOut" }}
-          >
-            Esto no es solo musica, es una historia
-          </motion.p>
+          {(!isMobile || introPhase === "logo") && (
+            <>
+              {!isMobile && (
+                <motion.div
+                  className="absolute h-72 w-72 rounded-full bg-neonViolet/35 blur-3xl"
+                  animate={{ scale: [1, 1.18, 1], opacity: [0.35, 0.8, 0.35] }}
+                  transition={{ repeat: Infinity, duration: 2.6 }}
+                />
+              )}
+              <motion.h1
+                className="relative z-10 flex w-full items-center justify-center gap-1 px-6 text-center font-display text-4xl font-extrabold tracking-[0.1em] sm:gap-3 sm:text-5xl md:text-8xl"
+                initial={{ scale: 0.85, opacity: 0 }}
+                animate={isMobile ? { scale: 1, opacity: [0, 1, 1] } : { scale: 1, opacity: [0, 1, 1, 0] }}
+                transition={isMobile ? { duration: 1.3, times: [0, 0.24, 1], ease: "easeOut" } : { duration: 2.1, times: [0, 0.18, 0.62, 0.78], ease: "easeInOut" }}
+              >
+                <span>SOY</span>
+                <motion.div
+                  initial={{ scale: 0.9 }}
+                  animate={isMobile ? { scale: [1, 1.2, 1.7, 4.8] } : { scale: [1, 1.16, 1.55, 6.8, 10.5] }}
+                  transition={
+                    isMobile
+                      ? { duration: 1.3, times: [0, 0.3, 0.68, 1], ease: ["easeOut", "easeOut", "easeIn"] }
+                      : { duration: 2.35, times: [0, 0.24, 0.52, 0.8, 1], ease: ["easeOut", "easeOut", "easeInOut", "easeIn"] }
+                  }
+                  className="ml-1 -mr-2 sm:ml-4 sm:-mr-6"
+                >
+                  <Image
+                    src={asset("/intro-1.png")}
+                    alt="M de Soy Matt"
+                    width={280}
+                    height={280}
+                    className="h-32 w-32 object-contain mix-blend-screen brightness-125 saturate-150 drop-shadow-[0_0_28px_rgba(255,190,120,0.98)] sm:h-36 sm:w-36 md:h-52 md:w-52"
+                  />
+                </motion.div>
+                <span>ATT</span>
+              </motion.h1>
+              <motion.p
+                className="relative z-10 mt-5 max-w-[92vw] px-6 text-center text-[11px] uppercase tracking-[0.22em] text-white/75 sm:mt-6 sm:max-w-xl sm:text-sm sm:tracking-[0.3em] md:text-base md:tracking-[0.35em]"
+                animate={isMobile ? { opacity: [0, 1, 1] } : { opacity: [0, 1, 1, 0] }}
+                transition={isMobile ? { duration: 1.3, times: [0, 0.28, 1], ease: "easeOut" } : { duration: 2.1, times: [0, 0.2, 0.62, 0.78], ease: "easeInOut" }}
+              >
+                Esto no es solo musica, es una historia
+              </motion.p>
+            </>
+          )}
 
           <motion.div
             className="pointer-events-none absolute inset-0 z-20 bg-white"
             initial={{ opacity: 0 }}
-            animate={isMobile ? { opacity: [0, 0, 1, 1, 0] } : { opacity: [0, 0, 1, 1, 0] }}
-            transition={isMobile ? { duration: 2.3, times: [0, 0.6, 0.76, 0.9, 1], ease: "easeInOut" } : { duration: 2.6, times: [0, 0.58, 0.72, 0.9, 1], ease: "easeInOut" }}
+            animate={
+              isMobile
+                ? { opacity: introPhase === "flash" ? 1 : 0 }
+                : { opacity: [0, 0, 1, 1, 0] }
+            }
+            transition={
+              isMobile
+                ? { duration: 0.35, ease: "easeOut" }
+                : { duration: 2.6, times: [0, 0.58, 0.72, 0.9, 1], ease: "easeInOut" }
+            }
           />
         </motion.section>
       )}
