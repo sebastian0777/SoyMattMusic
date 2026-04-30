@@ -80,13 +80,13 @@ export default function Home() {
   const glowY = useTransform(scrollYProgress, [0, 1], [0, -140]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), isMobile ? 2300 : 2600);
+    const timer = setTimeout(() => setLoading(false), isMobile ? 1850 : 2600);
     return () => clearTimeout(timer);
   }, [isMobile]);
 
   useEffect(() => {
     if (!loading || !isMobile) return;
-    const toFlash = setTimeout(() => setIntroPhase("flash"), 1350);
+    const toFlash = setTimeout(() => setIntroPhase("flash"), 1180);
     return () => clearTimeout(toFlash);
   }, [loading, isMobile]);
 
@@ -252,7 +252,7 @@ export default function Home() {
             }
             transition={
               isMobile
-                ? { duration: 0.35, ease: "easeOut" }
+                ? { duration: 0.2, ease: "easeOut" }
                 : { duration: 2.6, times: [0, 0.58, 0.72, 0.9, 1], ease: "easeInOut" }
             }
           />
