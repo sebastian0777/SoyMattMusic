@@ -194,12 +194,13 @@ export default function Home() {
 
       {loading && (
         <motion.section
-          className="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-black"
+          className="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-night"
           initial={{ opacity: 1 }}
           animate={isMobile ? { opacity: 1 } : { opacity: [1, 1, 0] }}
           transition={isMobile ? { duration: 0 } : { duration: 2.6, times: [0, 0.88, 1], ease: "easeInOut" }}
           exit={{ opacity: 0 }}
         >
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_22%,rgba(47,107,255,0.2),transparent_42%),radial-gradient(circle_at_80%_26%,rgba(255,46,188,0.16),transparent_38%),radial-gradient(circle_at_50%_70%,rgba(139,57,255,0.14),transparent_42%)]" />
           {(!isMobile || introPhase === "logo") && (
             <>
               {!isMobile && (
