@@ -118,6 +118,7 @@ export default function Home() {
   );
 
   useEffect(() => {
+    if (isMobile) return;
     const targets = [...reelRefs.current, featuredRef.current].filter(
       (el): el is HTMLVideoElement => Boolean(el)
     );
@@ -139,7 +140,7 @@ export default function Home() {
 
     targets.forEach((video) => observer.observe(video));
     return () => observer.disconnect();
-  }, []);
+  }, [isMobile]);
   const toggleReelSound = (idx: number) => {
     setReelMuted((prev) => {
       const nextMuted = !prev[idx];
