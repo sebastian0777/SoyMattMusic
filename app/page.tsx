@@ -202,10 +202,10 @@ export default function Home() {
             <span>SOY</span>
             <motion.div
               initial={{ scale: 0.9 }}
-              animate={isMobile ? { scale: [1, 1.06, 1.18] } : { scale: [1, 1.16, 1.55, 6.8, 10.5] }}
+              animate={isMobile ? { scale: [1, 1.12, 1.34, 1.72] } : { scale: [1, 1.16, 1.55, 6.8, 10.5] }}
               transition={
                 isMobile
-                  ? { duration: 1.2, times: [0, 0.55, 1], ease: "easeOut" }
+                  ? { duration: 1.45, times: [0, 0.42, 0.74, 1], ease: "easeOut" }
                   : { duration: 2.35, times: [0, 0.24, 0.52, 0.8, 1], ease: ["easeOut", "easeOut", "easeInOut", "easeIn"] }
               }
               className="ml-1 -mr-2 sm:ml-4 sm:-mr-6"
