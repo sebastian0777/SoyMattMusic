@@ -4,41 +4,43 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 
+const asset = (path: string) => `.${path}`;
+
 const tracks = [
   {
     title: "Preguntas Anonimas",
-    cover: "/miniaturas/miniatura-1.png",
+    cover: asset("/miniaturas/miniatura-1.png"),
     url: "https://open.spotify.com/search/Preguntas%20Anonimas%20SoyMattMusic"
   },
   {
     title: "No Me Mires",
-    cover: "/miniaturas/miniatura-2.png",
+    cover: asset("/miniaturas/miniatura-2.png"),
     url: "https://open.spotify.com/search/No%20Me%20Mires%20SoyMattMusic"
   },
   {
     title: "BREVE",
-    cover: "/miniaturas/miniatura-3.png",
+    cover: asset("/miniaturas/miniatura-3.png"),
     url: "https://open.spotify.com/search/BREVE%20SoyMattMusic"
   }
 ];
 
 const gallery = [
-  "/fotos/_MG_1248.jpg",
-  "/fotos/_MG_1265.jpg",
-  "/fotos/_MG_1352.jpg",
-  "/fotos/_MG_1417.jpg",
-  "/fotos/_MG_1475.jpg",
-  "/fotos/_MG_1553.jpg",
-  "/fotos/_MG_1569.jpg",
-  "/fotos/_MG_1724.jpg"
+  asset("/fotos/_MG_1248.jpg"),
+  asset("/fotos/_MG_1265.jpg"),
+  asset("/fotos/_MG_1352.jpg"),
+  asset("/fotos/_MG_1417.jpg"),
+  asset("/fotos/_MG_1475.jpg"),
+  asset("/fotos/_MG_1553.jpg"),
+  asset("/fotos/_MG_1569.jpg"),
+  asset("/fotos/_MG_1724.jpg")
 ];
 
 const clips = [
-  "/reels/reel-1.mp4",
-  "/reels/reel-2.mp4",
-  "/reels/reel-3.mp4"
+  asset("/reels/reel-1.mp4"),
+  asset("/reels/reel-2.mp4"),
+  asset("/reels/reel-3.mp4")
 ];
-const featuredClip = "/reels/reel-4.mp4";
+const featuredClip = asset("/reels/reel-4.mp4");
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -85,7 +87,7 @@ export default function Home() {
         delay: Math.random() * 1.6,
         duration: 3 + Math.random() * 2.5,
         rotate: [-8, 6, -5, 7, -6, 5, -7, 6][i],
-        color: ["#ffd786", "#ff79d1", "#6cd3ff", "#8cffc1", "#ffd786", "#ff79d1", "#6cd3ff", "#8cffc1"][i]
+        color: ["#eec889", "#8dbcd7", "#eec889", "#8dbcd7", "#eec889", "#8dbcd7", "#eec889", "#8dbcd7"][i]
       })),
     []
   );
@@ -122,7 +124,7 @@ export default function Home() {
             key={dot.id}
             className="absolute rounded-full bg-[#00ffd0]"
             style={{ left: `${dot.left}%`, top: `${dot.top}%`, width: dot.size, height: dot.size }}
-            animate={{ opacity: [0.12, 0.75, 0.12], scale: [0.85, 1.15, 0.85] }}
+            animate={{ opacity: [0.05, 0.22, 0.05], scale: [0.92, 1.07, 0.92] }}
             transition={{ duration: dot.duration, repeat: Infinity, delay: dot.delay }}
           />
         ))}
@@ -131,23 +133,19 @@ export default function Home() {
       {neonTags.map((tag) => (
         <motion.span
           key={tag.id}
-          className="pointer-events-none absolute z-[1] hidden whitespace-nowrap font-display text-4xl font-extrabold uppercase tracking-[0.08em] md:block"
+          className="pointer-events-none absolute z-[1] hidden whitespace-nowrap font-display text-3xl font-bold uppercase tracking-[0.06em] md:block"
           style={{
             left: `${tag.left}%`,
             top: `${tag.top}%`,
             rotate: `${tag.rotate}deg`,
             color: tag.color,
             textShadow:
-              tag.color === "#ffd786"
-                ? "0 0 7px rgba(255,180,75,0.85), 0 0 16px rgba(255,132,0,0.55), 0 0 28px rgba(255,46,188,0.32)"
-                : tag.color === "#ff79d1"
-                  ? "0 0 7px rgba(255,121,209,0.85), 0 0 16px rgba(255,46,188,0.55), 0 0 28px rgba(139,57,255,0.32)"
-                  : tag.color === "#6cd3ff"
-                    ? "0 0 7px rgba(108,211,255,0.85), 0 0 16px rgba(47,107,255,0.55), 0 0 28px rgba(108,211,255,0.32)"
-                    : "0 0 7px rgba(140,255,193,0.85), 0 0 16px rgba(0,255,179,0.55), 0 0 28px rgba(47,107,255,0.28)"
+              tag.color === "#eec889"
+                ? "0 0 6px rgba(238,200,137,0.7), 0 0 16px rgba(238,200,137,0.32)"
+                : "0 0 6px rgba(141,188,215,0.7), 0 0 16px rgba(141,188,215,0.3)"
           }}
           animate={{
-            opacity: [0.02, 0.32, 0.02],
+            opacity: [0.01, 0.14, 0.01],
             y: [0, -7, 0],
             rotate: [tag.rotate - 6, tag.rotate + 6, tag.rotate - 6],
             scale: [0.98, 1.02, 0.98]
@@ -184,7 +182,7 @@ export default function Home() {
           >
             <span>SOY</span>
             <Image
-              src="/intro-1.png"
+              src={asset("/intro-1.png")}
               alt="M de Soy Matt"
               width={280}
               height={280}
@@ -199,7 +197,7 @@ export default function Home() {
       )}
 
       <section className="relative flex min-h-screen items-center justify-center px-6 py-16">
-        <motion.div style={{ y: glowY }} className="absolute -top-24 left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-neonPink/20 blur-[130px]" />
+        <motion.div style={{ y: glowY }} className="absolute -top-24 left-1/2 h-[24rem] w-[24rem] -translate-x-1/2 rounded-full bg-neonPink/12 blur-[145px]" />
         <motion.div style={{ y: heroY }} className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1501612780327-45045538702b?q=80&w=1600&auto=format&fit=crop"
@@ -208,13 +206,13 @@ export default function Home() {
             priority
             className="object-cover opacity-65"
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(47,107,255,0.45),transparent_40%),radial-gradient(circle_at_80%_25%,rgba(255,46,188,0.35),transparent_35%),linear-gradient(180deg,rgba(5,5,7,0.15)_0%,#050507_92%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(47,107,255,0.3),transparent_40%),radial-gradient(circle_at_80%_25%,rgba(255,46,188,0.2),transparent_35%),linear-gradient(180deg,rgba(5,5,7,0.3)_0%,#050507_92%)]" />
         </motion.div>
 
         {particles.map((p) => (
           <motion.span
             key={p}
-            className="absolute h-1.5 w-1.5 rounded-full bg-neonGreen/70"
+            className="absolute h-1.5 w-1.5 rounded-full bg-neonGreen/45"
             initial={{ x: `${Math.random() * 100}vw`, y: `${Math.random() * 100}vh`, opacity: 0.2 }}
             animate={{ y: [null, `${Math.random() * 100}vh`], opacity: [0.2, 0.9, 0.2] }}
             transition={{ repeat: Infinity, duration: 5 + Math.random() * 8, ease: "linear" }}
@@ -222,8 +220,8 @@ export default function Home() {
         ))}
 
         <div className="relative z-20 mx-auto max-w-6xl text-center">
-          <motion.p initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} className="mb-5 text-xs uppercase tracking-[0.5em] text-white/70 md:text-sm">Universo SoyMattMusic</motion.p>
-          <motion.h2 initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="font-display text-6xl font-black leading-none drop-shadow-[0_0_20px_rgba(255,46,188,0.45)] md:text-8xl">
+          <motion.p initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} className="mb-5 text-xs uppercase tracking-[0.5em] text-[#eec889]/80 md:text-sm">Universo SoyMattMusic</motion.p>
+          <motion.h2 initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="font-display text-6xl font-black leading-none text-[#f2ede4] drop-shadow-[0_0_10px_rgba(238,200,137,0.2)] md:text-8xl">
             SoyMatt
           </motion.h2>
           <motion.p initial={{ opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="mx-auto mt-6 max-w-xl text-xl text-white/90 md:text-2xl">
@@ -363,17 +361,17 @@ export default function Home() {
 
       <section className="px-6 py-20">
         <motion.div
-          className="about-vibe relative mx-auto max-w-4xl overflow-hidden rounded-3xl border border-white/15 bg-[linear-gradient(120deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] px-6 py-7 backdrop-blur-xl md:px-9 md:py-9"
+          className="about-vibe relative mx-auto max-w-4xl overflow-hidden rounded-3xl border border-white/12 bg-[linear-gradient(120deg,rgba(255,255,255,0.05),rgba(255,255,255,0.025))] px-6 py-7 backdrop-blur-xl md:px-9 md:py-9"
           animate={{ y: [0, -3, 0], scale: [1, 1.008, 1] }}
           transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
         >
-          <div className="pointer-events-none absolute -left-20 top-4 h-32 w-32 rounded-full bg-neonPink/14 blur-3xl" />
-          <div className="pointer-events-none absolute -right-16 bottom-0 h-36 w-36 rounded-full bg-neonBlue/14 blur-3xl" />
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neonPink/70 to-transparent" />
+          <div className="pointer-events-none absolute -left-20 top-4 h-32 w-32 rounded-full bg-neonPink/9 blur-3xl" />
+          <div className="pointer-events-none absolute -right-16 bottom-0 h-36 w-36 rounded-full bg-neonBlue/9 blur-3xl" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neonPink/40 to-transparent" />
           <motion.div className="relative z-10" animate={{ opacity: [0.92, 1, 0.92] }} transition={{ duration: 2.8, repeat: Infinity }}>
             <p className="text-[11px] font-bold uppercase tracking-[0.32em] text-neonGreen/90">Identidad Sonora</p>
             <h3 className="mt-2 font-display text-3xl font-black leading-tight md:text-4xl">Soy Matt</h3>
-            <p className="mt-1 text-sm italic text-neonPink/85 md:text-base">"No suena para gustar, suena para quedarse."</p>
+            <p className="mt-1 text-sm italic text-neonPink/70 md:text-base">"No suena para gustar, suena para quedarse."</p>
             <p className="mt-4 text-base leading-relaxed text-white/85 md:text-lg">
               Soy Matt transforma emociones crudas en paisajes sonoros donde chocan la calle, la fe y la madrugada.
               <span className="font-semibold text-white"> Cada track nace de historias reales: caos, amor, caidas y renacer.</span>
@@ -383,9 +381,9 @@ export default function Home() {
       </section>
 
       <section className="px-6 py-20">
-        <div className="mx-auto grid max-w-6xl items-start gap-6 rounded-3xl border border-white/20 bg-[radial-gradient(circle_at_12%_18%,rgba(255,46,188,0.2),transparent_35%),radial-gradient(circle_at_85%_20%,rgba(47,107,255,0.2),transparent_35%),linear-gradient(120deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6 backdrop-blur-xl md:grid-cols-[0.95fr_1.05fr] md:p-8">
+        <div className="mx-auto grid max-w-6xl items-start gap-6 rounded-3xl border border-white/16 bg-[radial-gradient(circle_at_12%_18%,rgba(238,200,137,0.11),transparent_35%),radial-gradient(circle_at_85%_20%,rgba(141,188,215,0.11),transparent_35%),linear-gradient(120deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03))] p-6 backdrop-blur-xl md:grid-cols-[0.95fr_1.05fr] md:p-8">
           <div className="flex h-full flex-col justify-center">
-            <h3 className="bg-gradient-to-r from-neonPink via-white to-neonBlue bg-clip-text font-display text-4xl font-extrabold text-transparent">Conectemos</h3>
+            <h3 className="bg-gradient-to-r from-[#eec889] via-[#f7f3ea] to-[#8dbcd7] bg-clip-text font-display text-4xl font-extrabold text-transparent">Conectemos</h3>
             <p className="mt-4 text-white/80">Video destacado, Spotify, YouTube y mas.</p>
             <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-2">
               {[
@@ -394,24 +392,24 @@ export default function Home() {
                 ["Instagram", "https://instagram.com"],
                 ["TikTok", "https://tiktok.com"]
               ].map(([label, href]) => (
-                <a key={label} href={href} target="_blank" className="flex items-center justify-center gap-2 rounded-full border border-white/30 bg-black/25 px-4 py-2 text-sm font-bold uppercase tracking-[0.12em] text-white/90 transition hover:scale-[1.02] hover:border-neonPink hover:bg-neonPink/10 hover:text-neonPink">
+                <a key={label} href={href} target="_blank" className="flex items-center justify-center gap-2 rounded-full border border-white/28 bg-black/20 px-4 py-2 text-sm font-bold uppercase tracking-[0.1em] text-white/90 transition hover:border-white/50 hover:bg-white/5 hover:text-white">
                   {label === "Spotify" && (
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current text-[#1ed760] drop-shadow-[0_0_8px_rgba(30,215,96,0.65)]" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current text-[#eec889] drop-shadow-[0_0_8px_rgba(238,200,137,0.5)]" aria-hidden="true">
                       <path d="M12 1.8a10.2 10.2 0 1 0 0 20.4 10.2 10.2 0 0 0 0-20.4Zm4.9 14.7a.8.8 0 0 1-1.1.3c-3-1.8-6.8-2.2-11.2-1.2a.8.8 0 0 1-.3-1.6c4.8-1.1 9-0.6 12.3 1.4.4.2.6.7.3 1.1Zm1.5-2.8a1 1 0 0 1-1.3.4c-3.4-2.1-8.6-2.8-12.6-1.5a1 1 0 1 1-.6-1.8c4.5-1.4 10.1-.7 14.2 1.8.5.3.6.9.3 1.3Zm.1-3a1.1 1.1 0 0 1-1.4.4c-3.9-2.3-10.4-2.6-14.1-1.5a1.1 1.1 0 1 1-.7-2.1c4.3-1.3 11.5-1 15.9 1.7.5.3.7 1 .3 1.5Z" />
                     </svg>
                   )}
                   {label === "YouTube" && (
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current text-[#ff4f8a] drop-shadow-[0_0_8px_rgba(255,79,138,0.65)]" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current text-[#8dbcd7] drop-shadow-[0_0_8px_rgba(141,188,215,0.5)]" aria-hidden="true">
                       <path d="M23.5 7.2a3 3 0 0 0-2.1-2.1C19.5 4.6 12 4.6 12 4.6s-7.5 0-9.4.5A3 3 0 0 0 .5 7.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-4.8ZM9.6 15.1V8.9l6 3.1-6 3.1Z" />
                     </svg>
                   )}
                   {label === "Instagram" && (
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current text-[#ff7adb] drop-shadow-[0_0_8px_rgba(255,122,219,0.65)]" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current text-[#eec889] drop-shadow-[0_0_8px_rgba(238,200,137,0.5)]" aria-hidden="true">
                       <path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 1.8A4 4 0 0 0 3.8 7.8v8.4a4 4 0 0 0 4 4h8.4a4 4 0 0 0 4-4V7.8a4 4 0 0 0-4-4H7.8Zm9.1 1.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z" />
                     </svg>
                   )}
                   {label === "TikTok" && (
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current text-[#79e9ff] drop-shadow-[0_0_8px_rgba(121,233,255,0.65)]" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current text-[#8dbcd7] drop-shadow-[0_0_8px_rgba(141,188,215,0.5)]" aria-hidden="true">
                       <path d="M14.8 3c.6 1.8 1.8 3 3.6 3.5v2.8a8.5 8.5 0 0 1-3.6-1.1v6.1a5.4 5.4 0 1 1-5.4-5.4c.3 0 .6 0 .9.1v2.9a2.5 2.5 0 1 0 1.7 2.4V3h2.8Z" />
                     </svg>
                   )}
