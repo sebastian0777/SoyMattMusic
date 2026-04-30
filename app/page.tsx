@@ -57,7 +57,7 @@ export default function Home() {
   const glowY = useTransform(scrollYProgress, [0, 1], [0, -140]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2400);
+    const timer = setTimeout(() => setLoading(false), 2900);
     return () => clearTimeout(timer);
   }, []);
 
@@ -128,17 +128,24 @@ export default function Home() {
           <motion.h1
             className="relative z-10 flex items-center gap-3 font-display text-5xl font-extrabold tracking-[0.14em] md:text-8xl"
             initial={{ scale: 0.85, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1 }}
+            animate={{ scale: 1, opacity: [0, 1, 1, 0.88] }}
+            transition={{ duration: 2.2, times: [0, 0.22, 0.72, 1] }}
           >
             <span>SOY</span>
-            <Image
-              src={asset("/intro-1.png")}
-              alt="M de Soy Matt"
-              width={280}
-              height={280}
-              className="ml-4 -mr-6 h-32 w-32 object-contain mix-blend-screen brightness-125 saturate-150 drop-shadow-[0_0_24px_rgba(255,190,120,0.98)] md:h-44 md:w-44"
-            />
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: [0.95, 1.08, 1.18, 3.9] }}
+              transition={{ duration: 2.35, times: [0, 0.28, 0.58, 1], ease: ["easeOut", "easeOut", "easeIn"] }}
+              className="ml-4 -mr-6"
+            >
+              <Image
+                src={asset("/intro-1.png")}
+                alt="M de Soy Matt"
+                width={280}
+                height={280}
+                className="h-32 w-32 object-contain mix-blend-screen brightness-125 saturate-150 drop-shadow-[0_0_24px_rgba(255,190,120,0.98)] md:h-44 md:w-44"
+              />
+            </motion.div>
             <span>ATT</span>
           </motion.h1>
           <p className="relative z-10 mt-6 text-sm uppercase tracking-[0.35em] text-white/75 md:text-base">
