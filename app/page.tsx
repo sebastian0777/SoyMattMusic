@@ -196,8 +196,8 @@ export default function Home() {
           <motion.h1
             className="relative z-10 flex w-full items-center justify-center gap-1 px-6 text-center font-display text-4xl font-extrabold tracking-[0.1em] sm:gap-3 sm:text-5xl md:text-8xl"
             initial={{ scale: 0.85, opacity: 0 }}
-            animate={isMobile ? { scale: 1, opacity: [0, 1, 1] } : { scale: 1, opacity: [0, 1, 1, 0] }}
-            transition={isMobile ? { duration: 1.45, times: [0, 0.28, 1], ease: "easeOut" } : { duration: 2.1, times: [0, 0.18, 0.62, 0.78], ease: "easeInOut" }}
+            animate={isMobile ? { scale: 1, opacity: [0, 1, 1, 0] } : { scale: 1, opacity: [0, 1, 1, 0] }}
+            transition={isMobile ? { duration: 1.95, times: [0, 0.24, 0.62, 0.78], ease: "easeInOut" } : { duration: 2.1, times: [0, 0.18, 0.62, 0.78], ease: "easeInOut" }}
           >
             <span>SOY</span>
             <motion.div
@@ -222,8 +222,8 @@ export default function Home() {
           </motion.h1>
           <motion.p
             className="relative z-10 mt-5 max-w-[92vw] px-6 text-center text-[11px] uppercase tracking-[0.22em] text-white/75 sm:mt-6 sm:max-w-xl sm:text-sm sm:tracking-[0.3em] md:text-base md:tracking-[0.35em]"
-            animate={isMobile ? { opacity: [0, 1, 1] } : { opacity: [0, 1, 1, 0] }}
-            transition={isMobile ? { duration: 1.45, times: [0, 0.3, 1], ease: "easeOut" } : { duration: 2.1, times: [0, 0.2, 0.62, 0.78], ease: "easeInOut" }}
+            animate={isMobile ? { opacity: [0, 1, 1, 0] } : { opacity: [0, 1, 1, 0] }}
+            transition={isMobile ? { duration: 1.95, times: [0, 0.24, 0.62, 0.78], ease: "easeInOut" } : { duration: 2.1, times: [0, 0.2, 0.62, 0.78], ease: "easeInOut" }}
           >
             Esto no es solo musica, es una historia
           </motion.p>
