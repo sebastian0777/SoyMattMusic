@@ -75,7 +75,6 @@ export default function Home() {
   const reelRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const featuredRef = useRef<HTMLVideoElement | null>(null);
   const reduceMotion = useReducedMotion();
-  const mobileLite = isMobile || !!reduceMotion;
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -250]);
   const glowY = useTransform(scrollYProgress, [0, 1], [0, -140]);
@@ -164,16 +163,6 @@ export default function Home() {
       return nextMuted;
     });
   };
-  const reveal = (delay = 0, y = 24) =>
-    mobileLite
-      ? {}
-      : {
-          initial: { opacity: 0, y },
-          whileInView: { opacity: 1, y: 0 },
-          transition: { delay },
-          viewport: { once: true, amount: 0.2 }
-        };
-  const galleryToShow = isMobile ? gallery.slice(0, 4) : gallery;
 
   return (
     <main className="relative overflow-hidden bg-night text-white font-body">
@@ -294,14 +283,14 @@ export default function Home() {
         ))}
 
         <div className="relative z-20 mx-auto max-w-6xl text-center">
-          <motion.p {...reveal(0, 24)} className="mb-5 text-xs uppercase tracking-[0.5em] text-[#eec889]/80 md:text-sm">Universo SoyMattMusic</motion.p>
-          <motion.h2 {...reveal(0.2, 28)} className="font-display text-5xl font-black leading-none text-[#f2ede4] drop-shadow-[0_0_10px_rgba(238,200,137,0.2)] sm:text-6xl md:text-8xl">
+          <motion.p initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} className="mb-5 text-xs uppercase tracking-[0.5em] text-[#eec889]/80 md:text-sm">Universo SoyMattMusic</motion.p>
+          <motion.h2 initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="font-display text-5xl font-black leading-none text-[#f2ede4] drop-shadow-[0_0_10px_rgba(238,200,137,0.2)] sm:text-6xl md:text-8xl">
             SoyMatt
           </motion.h2>
-          <motion.p {...reveal(0.35, 26)} className="mx-auto mt-5 max-w-xl text-lg text-white/90 sm:text-xl md:mt-6 md:text-2xl">
+          <motion.p initial={{ opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="mx-auto mt-5 max-w-xl text-lg text-white/90 sm:text-xl md:mt-6 md:text-2xl">
             Vive lo que escuchas
           </motion.p>
-          <motion.div {...reveal(0.45, 20)} className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a href="#musica" className="rounded-full bg-white px-7 py-3 text-xs font-bold uppercase tracking-[0.14em] text-black transition hover:scale-105 sm:px-8 sm:text-sm sm:tracking-[0.2em]">Escuchar ahora</a>
             <a href="#videos" className="rounded-full border border-white/50 bg-white/10 px-7 py-3 text-xs font-bold uppercase tracking-[0.14em] text-white backdrop-blur transition hover:scale-105 hover:border-neonBlue/80 hover:shadow-cyan sm:px-8 sm:text-sm sm:tracking-[0.2em]">Ver videos</a>
           </motion.div>
@@ -326,7 +315,9 @@ export default function Home() {
                   href={track.url}
                   target="_blank"
                   rel="noreferrer"
-                  {...(mobileLite ? {} : { initial: { opacity: 0, x: 22 }, whileInView: { opacity: 1, x: 0 }, transition: { delay: idx * 0.1 }, viewport: { once: true, amount: 0.2 } })}
+                  initial={{ opacity: 0, x: 22 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.1 }}
                   className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-xl transition hover:border-neonPink/60 hover:shadow-pink"
                 >
                   <div className="relative h-16 w-16 overflow-hidden rounded-xl">
@@ -352,10 +343,12 @@ export default function Home() {
         <div className="mx-auto max-w-6xl">
           <h3 className="font-display text-3xl font-extrabold sm:text-4xl md:text-5xl">Galeria Visual</h3>
           <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-            {galleryToShow.map((img, idx) => (
+            {gallery.map((img, idx) => (
               <motion.div
                 key={img}
-                {...(mobileLite ? {} : { initial: { opacity: 0, scale: 0.94 }, whileInView: { opacity: 1, scale: 1 }, transition: { delay: idx * 0.06 }, viewport: { once: true, amount: 0.2 } })}
+                initial={{ opacity: 0, scale: 0.94 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: idx * 0.06 }}
                 className="group relative overflow-hidden rounded-2xl border border-white/10"
               >
                 <div className="relative aspect-[3/4]">
@@ -371,7 +364,7 @@ export default function Home() {
       <section className="px-4 py-16 md:px-6 md:py-20">
         <div className="mx-auto max-w-4xl text-center">
           {["Cada cancion es un momento", "No es musica, es lo que sientes", "Tu historia tambien suena aqui"].map((line, idx) => (
-            <motion.p key={line} {...(mobileLite ? {} : { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, transition: { delay: idx * 0.2 }, viewport: { once: true, amount: 0.2 } })} className="mb-5 font-display text-3xl font-extrabold text-transparent [text-shadow:0_0_24px_rgba(47,107,255,0.42)] bg-gradient-to-r from-neonBlue via-neonPink to-neonGreen bg-clip-text md:text-5xl">
+            <motion.p key={line} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.2 }} className="mb-5 font-display text-3xl font-extrabold text-transparent [text-shadow:0_0_24px_rgba(47,107,255,0.42)] bg-gradient-to-r from-neonBlue via-neonPink to-neonGreen bg-clip-text md:text-5xl">
               {line}
             </motion.p>
           ))}
@@ -383,7 +376,7 @@ export default function Home() {
           <h3 className="font-display text-3xl font-extrabold sm:text-4xl md:text-5xl">Visualizers / Reels</h3>
           <div className="mt-10 grid gap-4 md:grid-cols-3">
             {clips.map((clip, idx) => (
-              <motion.div key={clip} {...(mobileLite ? {} : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, transition: { delay: idx * 0.12 }, viewport: { once: true, amount: 0.2 } })} className="group relative overflow-visible rounded-2xl border border-white/10 bg-white/5">
+              <motion.div key={clip} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.12 }} className="group relative overflow-visible rounded-2xl border border-white/10 bg-white/5">
                 <motion.div
                   className="pointer-events-none absolute -inset-1 rounded-[1.15rem] border border-neonPink/35"
                   animate={{ opacity: [0.35, 0.8, 0.35] }}
@@ -520,7 +513,7 @@ export default function Home() {
       </section>
 
       <section className="px-4 pb-20 pt-6 text-center md:px-6 md:pb-24 md:pt-8">
-        <motion.h4 {...reveal(0, 20)} className="font-display text-4xl font-black sm:text-5xl md:text-7xl">
+        <motion.h4 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="font-display text-4xl font-black sm:text-5xl md:text-7xl">
           Sigue el pulso
         </motion.h4>
         <p className="mx-auto mt-4 max-w-2xl text-white/75">Si llegaste hasta aqui, ya eres parte de esta historia.</p>
