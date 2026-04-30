@@ -79,7 +79,7 @@ export default function Home() {
   const glowY = useTransform(scrollYProgress, [0, 1], [0, -140]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), isMobile ? 1850 : 2600);
+    const timer = setTimeout(() => setLoading(false), isMobile ? 2300 : 2600);
     return () => clearTimeout(timer);
   }, [isMobile]);
 
@@ -202,10 +202,10 @@ export default function Home() {
             <span>SOY</span>
             <motion.div
               initial={{ scale: 0.9 }}
-              animate={isMobile ? { scale: [1, 1.12, 1.34, 1.72] } : { scale: [1, 1.16, 1.55, 6.8, 10.5] }}
+              animate={isMobile ? { scale: [1, 1.2, 1.7, 4.8, 7.6] } : { scale: [1, 1.16, 1.55, 6.8, 10.5] }}
               transition={
                 isMobile
-                  ? { duration: 1.45, times: [0, 0.42, 0.74, 1], ease: "easeOut" }
+                  ? { duration: 2.05, times: [0, 0.24, 0.5, 0.8, 1], ease: ["easeOut", "easeOut", "easeInOut", "easeIn"] }
                   : { duration: 2.35, times: [0, 0.24, 0.52, 0.8, 1], ease: ["easeOut", "easeOut", "easeInOut", "easeIn"] }
               }
               className="ml-1 -mr-2 sm:ml-4 sm:-mr-6"
@@ -231,8 +231,8 @@ export default function Home() {
           <motion.div
             className="pointer-events-none absolute inset-0 z-20 bg-white"
             initial={{ opacity: 0 }}
-            animate={isMobile ? { opacity: [0, 0, 0.95, 0] } : { opacity: [0, 0, 1, 1, 0] }}
-            transition={isMobile ? { duration: 1.85, times: [0, 0.66, 0.86, 1], ease: "easeInOut" } : { duration: 2.6, times: [0, 0.58, 0.72, 0.9, 1], ease: "easeInOut" }}
+            animate={isMobile ? { opacity: [0, 0, 1, 1, 0] } : { opacity: [0, 0, 1, 1, 0] }}
+            transition={isMobile ? { duration: 2.3, times: [0, 0.6, 0.76, 0.9, 1], ease: "easeInOut" } : { duration: 2.6, times: [0, 0.58, 0.72, 0.9, 1], ease: "easeInOut" }}
           />
         </motion.section>
       )}
