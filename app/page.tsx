@@ -129,8 +129,8 @@ export default function Home() {
           <motion.h1
             className="relative z-10 flex items-center gap-3 font-display text-5xl font-extrabold tracking-[0.14em] md:text-8xl"
             initial={{ scale: 0.85, opacity: 0 }}
-            animate={{ scale: 1, opacity: [0, 1, 1] }}
-            transition={{ duration: 1.8, times: [0, 0.2, 1] }}
+            animate={{ scale: 1, opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 2.1, times: [0, 0.18, 0.62, 0.78], ease: "easeInOut" }}
           >
             <span>SOY</span>
             <motion.div
@@ -149,15 +149,19 @@ export default function Home() {
             </motion.div>
             <span>ATT</span>
           </motion.h1>
-          <p className="relative z-10 mt-6 text-sm uppercase tracking-[0.35em] text-white/75 md:text-base">
+          <motion.p
+            className="relative z-10 mt-6 text-sm uppercase tracking-[0.35em] text-white/75 md:text-base"
+            animate={{ opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 2.1, times: [0, 0.2, 0.62, 0.78], ease: "easeInOut" }}
+          >
             Esto no es solo musica, es una historia
-          </p>
+          </motion.p>
 
           <motion.div
             className="pointer-events-none absolute inset-0 z-20 bg-white"
             initial={{ opacity: 0 }}
             animate={{ opacity: [0, 0, 1, 1, 0] }}
-            transition={{ duration: 2.6, times: [0, 0.64, 0.78, 0.9, 1], ease: "easeInOut" }}
+            transition={{ duration: 2.6, times: [0, 0.58, 0.72, 0.9, 1], ease: "easeInOut" }}
           />
         </motion.section>
       )}
@@ -410,6 +414,20 @@ export default function Home() {
           </a>
         </div>
       </section>
+
+      <footer className="px-6 pb-10 text-center">
+        <p className="text-xs uppercase tracking-[0.28em] text-white/45">
+          Crafted by{" "}
+          <a
+            href="https://weweb.site"
+            target="_blank"
+            rel="noreferrer"
+            className="font-bold text-white/70 transition hover:text-white"
+          >
+            WeWeb
+          </a>
+        </p>
+      </footer>
     </main>
   );
 }
