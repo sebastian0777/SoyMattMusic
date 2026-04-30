@@ -79,9 +79,9 @@ export default function Home() {
   const glowY = useTransform(scrollYProgress, [0, 1], [0, -140]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2600);
+    const timer = setTimeout(() => setLoading(false), isMobile ? 1450 : 2600);
     return () => clearTimeout(timer);
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     const move = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY });
@@ -96,10 +96,10 @@ export default function Home() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const particles = useMemo(() => Array.from({ length: isMobile ? 0 : 6 }, (_, i) => i), [isMobile]);
+  const particles = useMemo(() => Array.from({ length: isMobile ? 0 : 4 }, (_, i) => i), [isMobile]);
   const backgroundDots = useMemo(
     () =>
-      Array.from({ length: isMobile ? 24 : 40 }, (_, i) => ({
+      Array.from({ length: isMobile ? 10 : 32 }, (_, i) => ({
         id: i,
         left: Math.random() * 100,
         top: Math.random() * 100,
@@ -202,8 +202,12 @@ export default function Home() {
             <span>SOY</span>
             <motion.div
               initial={{ scale: 0.9 }}
-              animate={{ scale: [1, 1.16, 1.55, 6.8, 10.5] }}
-              transition={{ duration: 2.35, times: [0, 0.24, 0.52, 0.8, 1], ease: ["easeOut", "easeOut", "easeInOut", "easeIn"] }}
+              animate={isMobile ? { scale: [1, 1.06, 1.18] } : { scale: [1, 1.16, 1.55, 6.8, 10.5] }}
+              transition={
+                isMobile
+                  ? { duration: 1.2, times: [0, 0.55, 1], ease: "easeOut" }
+                  : { duration: 2.35, times: [0, 0.24, 0.52, 0.8, 1], ease: ["easeOut", "easeOut", "easeInOut", "easeIn"] }
+              }
               className="ml-1 -mr-2 sm:ml-4 sm:-mr-6"
             >
               <Image
@@ -227,8 +231,8 @@ export default function Home() {
           <motion.div
             className="pointer-events-none absolute inset-0 z-20 bg-white"
             initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0, 1, 1, 0] }}
-            transition={{ duration: 2.6, times: [0, 0.58, 0.72, 0.9, 1], ease: "easeInOut" }}
+            animate={isMobile ? { opacity: [0, 0.9, 0] } : { opacity: [0, 0, 1, 1, 0] }}
+            transition={isMobile ? { duration: 1.35, times: [0, 0.58, 1], ease: "easeInOut" } : { duration: 2.6, times: [0, 0.58, 0.72, 0.9, 1], ease: "easeInOut" }}
           />
         </motion.section>
       )}
@@ -456,9 +460,9 @@ export default function Home() {
             <video
               ref={featuredRef}
               src={featuredClip}
-              autoPlay
+              autoPlay={!isMobile}
               muted={featuredMuted}
-              loop
+              loop={!isMobile}
               playsInline
               preload="none"
               className="h-[340px] w-full rounded-xl object-cover sm:h-[420px]"
