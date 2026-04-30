@@ -8,19 +8,19 @@ module.exports = {
     extend: {
       colors: {
         night: "#050507",
-        neonBlue: "#2f6bff",
-        neonPink: "#ff2ebc",
-        neonViolet: "#8b39ff",
-        neonGreen: "#00ffb3"
+        neonBlue: "#7f95ad",
+        neonPink: "#b7848f",
+        neonViolet: "#8a7aa6",
+        neonGreen: "#c9b07a"
       },
       fontFamily: {
         display: ["'Sora'", "sans-serif"],
         body: ["'Manrope'", "sans-serif"]
       },
       boxShadow: {
-        glow: "0 0 35px rgba(139,57,255,0.35)",
-        cyan: "0 0 30px rgba(47,107,255,0.28)",
-        pink: "0 0 30px rgba(255,46,188,0.3)"
+        glow: "0 0 28px rgba(138,122,166,0.2)",
+        cyan: "0 0 24px rgba(127,149,173,0.2)",
+        pink: "0 0 24px rgba(183,132,143,0.2)"
       }
     }
   },

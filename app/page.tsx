@@ -68,29 +68,6 @@ export default function Home() {
   }, []);
 
   const particles = useMemo(() => Array.from({ length: 28 }, (_, i) => i), []);
-  const neonTags = useMemo(
-    () =>
-      [
-        "LIVE",
-        "BASS",
-        "OPEN MIC",
-        "RHYTHM",
-        "STUDIO",
-        "VIBES",
-        "SOUND",
-        "BEAT"
-      ].map((text, i) => ({
-        id: `${text}-${i}`,
-        text,
-        left: [8, 28, 48, 68, 84, 16, 40, 76][i],
-        top: [6, 18, 34, 48, 62, 76, 88, 96][i],
-        delay: Math.random() * 1.6,
-        duration: 3 + Math.random() * 2.5,
-        rotate: [-8, 6, -5, 7, -6, 5, -7, 6][i],
-        color: ["#eec889", "#8dbcd7", "#eec889", "#8dbcd7", "#eec889", "#8dbcd7", "#eec889", "#8dbcd7"][i]
-      })),
-    []
-  );
   const backgroundDots = useMemo(
     () =>
       Array.from({ length: 180 }, (_, i) => ({
@@ -122,39 +99,13 @@ export default function Home() {
         {backgroundDots.map((dot) => (
           <motion.span
             key={dot.id}
-            className="absolute rounded-full bg-[#00ffd0]"
+            className="absolute rounded-full bg-[#7f95ad]"
             style={{ left: `${dot.left}%`, top: `${dot.top}%`, width: dot.size, height: dot.size }}
             animate={{ opacity: [0.05, 0.22, 0.05], scale: [0.92, 1.07, 0.92] }}
             transition={{ duration: dot.duration, repeat: Infinity, delay: dot.delay }}
           />
         ))}
       </div>
-
-      {neonTags.map((tag) => (
-        <motion.span
-          key={tag.id}
-          className="pointer-events-none absolute z-[1] hidden whitespace-nowrap font-display text-3xl font-bold uppercase tracking-[0.06em] md:block"
-          style={{
-            left: `${tag.left}%`,
-            top: `${tag.top}%`,
-            rotate: `${tag.rotate}deg`,
-            color: tag.color,
-            textShadow:
-              tag.color === "#eec889"
-                ? "0 0 6px rgba(238,200,137,0.7), 0 0 16px rgba(238,200,137,0.32)"
-                : "0 0 6px rgba(141,188,215,0.7), 0 0 16px rgba(141,188,215,0.3)"
-          }}
-          animate={{
-            opacity: [0.01, 0.14, 0.01],
-            y: [0, -7, 0],
-            rotate: [tag.rotate - 6, tag.rotate + 6, tag.rotate - 6],
-            scale: [0.98, 1.02, 0.98]
-          }}
-          transition={{ duration: tag.duration, repeat: Infinity, delay: tag.delay }}
-        >
-          {tag.text}
-        </motion.span>
-      ))}
 
       <motion.div
         className="pointer-events-none fixed z-[999] hidden h-8 w-8 rounded-full border border-white/70 mix-blend-difference md:block"
@@ -206,7 +157,7 @@ export default function Home() {
             priority
             className="object-cover opacity-65"
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(47,107,255,0.3),transparent_40%),radial-gradient(circle_at_80%_25%,rgba(255,46,188,0.2),transparent_35%),linear-gradient(180deg,rgba(5,5,7,0.3)_0%,#050507_92%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(127,149,173,0.24),transparent_40%),radial-gradient(circle_at_80%_25%,rgba(183,132,143,0.16),transparent_35%),linear-gradient(180deg,rgba(5,5,7,0.35)_0%,#050507_92%)]" />
         </motion.div>
 
         {particles.map((p) => (
