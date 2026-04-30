@@ -79,7 +79,7 @@ export default function Home() {
   const glowY = useTransform(scrollYProgress, [0, 1], [0, -140]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), isMobile ? 1450 : 2600);
+    const timer = setTimeout(() => setLoading(false), isMobile ? 1850 : 2600);
     return () => clearTimeout(timer);
   }, [isMobile]);
 
@@ -196,8 +196,8 @@ export default function Home() {
           <motion.h1
             className="relative z-10 flex w-full items-center justify-center gap-1 px-6 text-center font-display text-4xl font-extrabold tracking-[0.1em] sm:gap-3 sm:text-5xl md:text-8xl"
             initial={{ scale: 0.85, opacity: 0 }}
-            animate={{ scale: 1, opacity: [0, 1, 1, 0] }}
-            transition={{ duration: 2.1, times: [0, 0.18, 0.62, 0.78], ease: "easeInOut" }}
+            animate={isMobile ? { scale: 1, opacity: [0, 1, 1] } : { scale: 1, opacity: [0, 1, 1, 0] }}
+            transition={isMobile ? { duration: 1.45, times: [0, 0.28, 1], ease: "easeOut" } : { duration: 2.1, times: [0, 0.18, 0.62, 0.78], ease: "easeInOut" }}
           >
             <span>SOY</span>
             <motion.div
@@ -215,15 +215,15 @@ export default function Home() {
                 alt="M de Soy Matt"
                 width={280}
                 height={280}
-                className="h-36 w-36 object-contain mix-blend-screen brightness-125 saturate-150 drop-shadow-[0_0_28px_rgba(255,190,120,0.98)] md:h-52 md:w-52"
+                className="h-32 w-32 object-contain mix-blend-screen brightness-125 saturate-150 drop-shadow-[0_0_28px_rgba(255,190,120,0.98)] sm:h-36 sm:w-36 md:h-52 md:w-52"
               />
             </motion.div>
             <span>ATT</span>
           </motion.h1>
           <motion.p
             className="relative z-10 mt-5 max-w-[92vw] px-6 text-center text-[11px] uppercase tracking-[0.22em] text-white/75 sm:mt-6 sm:max-w-xl sm:text-sm sm:tracking-[0.3em] md:text-base md:tracking-[0.35em]"
-            animate={{ opacity: [0, 1, 1, 0] }}
-            transition={{ duration: 2.1, times: [0, 0.2, 0.62, 0.78], ease: "easeInOut" }}
+            animate={isMobile ? { opacity: [0, 1, 1] } : { opacity: [0, 1, 1, 0] }}
+            transition={isMobile ? { duration: 1.45, times: [0, 0.3, 1], ease: "easeOut" } : { duration: 2.1, times: [0, 0.2, 0.62, 0.78], ease: "easeInOut" }}
           >
             Esto no es solo musica, es una historia
           </motion.p>
@@ -231,8 +231,8 @@ export default function Home() {
           <motion.div
             className="pointer-events-none absolute inset-0 z-20 bg-white"
             initial={{ opacity: 0 }}
-            animate={isMobile ? { opacity: [0, 0.9, 0] } : { opacity: [0, 0, 1, 1, 0] }}
-            transition={isMobile ? { duration: 1.35, times: [0, 0.58, 1], ease: "easeInOut" } : { duration: 2.6, times: [0, 0.58, 0.72, 0.9, 1], ease: "easeInOut" }}
+            animate={isMobile ? { opacity: [0, 0, 0.95, 0] } : { opacity: [0, 0, 1, 1, 0] }}
+            transition={isMobile ? { duration: 1.85, times: [0, 0.66, 0.86, 1], ease: "easeInOut" } : { duration: 2.6, times: [0, 0.58, 0.72, 0.9, 1], ease: "easeInOut" }}
           />
         </motion.section>
       )}
