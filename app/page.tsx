@@ -57,7 +57,7 @@ export default function Home() {
   const glowY = useTransform(scrollYProgress, [0, 1], [0, -140]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2900);
+    const timer = setTimeout(() => setLoading(false), 3800);
     return () => clearTimeout(timer);
   }, []);
 
@@ -117,7 +117,8 @@ export default function Home() {
         <motion.section
           className="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-black"
           initial={{ opacity: 1 }}
-          animate={{ opacity: 1 }}
+          animate={{ opacity: [1, 1, 1, 0] }}
+          transition={{ duration: 3.8, times: [0, 0.72, 0.9, 1], ease: "easeInOut" }}
           exit={{ opacity: 0 }}
         >
           <motion.div
@@ -134,8 +135,8 @@ export default function Home() {
             <span>SOY</span>
             <motion.div
               initial={{ scale: 0.9 }}
-              animate={{ scale: [0.95, 1.08, 1.18, 3.9] }}
-              transition={{ duration: 2.35, times: [0, 0.28, 0.58, 1], ease: ["easeOut", "easeOut", "easeIn"] }}
+              animate={{ scale: [0.95, 1.1, 1.4, 7.5, 11] }}
+              transition={{ duration: 3.2, times: [0, 0.22, 0.5, 0.8, 1], ease: ["easeOut", "easeOut", "easeIn", "easeIn"] }}
               className="ml-4 -mr-6"
             >
               <Image
@@ -151,6 +152,13 @@ export default function Home() {
           <p className="relative z-10 mt-6 text-sm uppercase tracking-[0.35em] text-white/75 md:text-base">
             Esto no es solo musica, es una historia
           </p>
+
+          <motion.div
+            className="pointer-events-none absolute inset-0 z-20 bg-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0, 0.12, 1, 1, 0] }}
+            transition={{ duration: 3.8, times: [0, 0.68, 0.76, 0.84, 0.9, 1], ease: "easeInOut" }}
+          />
         </motion.section>
       )}
 
