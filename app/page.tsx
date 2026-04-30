@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const asset = (path: string) => `.${path}`;
@@ -73,6 +73,7 @@ export default function Home() {
   });
   const reelRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const featuredRef = useRef<HTMLVideoElement | null>(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -250]);
   const glowY = useTransform(scrollYProgress, [0, 1], [0, -140]);
@@ -95,10 +96,10 @@ export default function Home() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const particles = useMemo(() => Array.from({ length: isMobile ? 8 : 18 }, (_, i) => i), [isMobile]);
+  const particles = useMemo(() => Array.from({ length: isMobile ? 4 : 12 }, (_, i) => i), [isMobile]);
   const backgroundDots = useMemo(
     () =>
-      Array.from({ length: isMobile ? 85 : 130 }, (_, i) => ({
+      Array.from({ length: isMobile ? 50 : 90 }, (_, i) => ({
         id: i,
         left: Math.random() * 100,
         top: Math.random() * 100,
@@ -108,6 +109,30 @@ export default function Home() {
       })),
     [isMobile]
   );
+
+  useEffect(() => {
+    const targets = [...reelRefs.current, featuredRef.current].filter(
+      (el): el is HTMLVideoElement => Boolean(el)
+    );
+    if (!targets.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) {
+            void video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+
+    targets.forEach((video) => observer.observe(video));
+    return () => observer.disconnect();
+  }, []);
   const toggleReelSound = (idx: number) => {
     setReelMuted((prev) => {
       const nextMuted = !prev[idx];
@@ -139,8 +164,16 @@ export default function Home() {
             key={dot.id}
             className="absolute rounded-full bg-[#00ffd0]"
             style={{ left: `${dot.left}%`, top: `${dot.top}%`, width: dot.size, height: dot.size }}
-            animate={{ opacity: [0.05, 0.22, 0.05], scale: [0.92, 1.07, 0.92] }}
-            transition={{ duration: dot.duration, repeat: Infinity, delay: dot.delay }}
+            animate={
+              reduceMotion || isMobile
+                ? { opacity: 0.14, scale: 1 }
+                : { opacity: [0.05, 0.22, 0.05], scale: [0.92, 1.07, 0.92] }
+            }
+            transition={
+              reduceMotion || isMobile
+                ? { duration: 0 }
+                : { duration: dot.duration, repeat: Infinity, delay: dot.delay }
+            }
           />
         ))}
       </div>
@@ -165,7 +198,7 @@ export default function Home() {
             transition={{ repeat: Infinity, duration: 2.6 }}
           />
           <motion.h1
-            className="relative z-10 flex w-full items-center justify-center gap-2 px-6 text-center font-display text-4xl font-extrabold tracking-[0.12em] sm:gap-3 sm:text-5xl md:text-8xl"
+            className="relative z-10 flex w-full items-center justify-center gap-1 px-6 text-center font-display text-4xl font-extrabold tracking-[0.1em] sm:gap-3 sm:text-5xl md:text-8xl"
             initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: [0, 1, 1, 0] }}
             transition={{ duration: 2.1, times: [0, 0.18, 0.62, 0.78], ease: "easeInOut" }}
@@ -175,7 +208,7 @@ export default function Home() {
               initial={{ scale: 0.9 }}
               animate={{ scale: [1, 1.16, 1.55, 6.8, 10.5] }}
               transition={{ duration: 2.35, times: [0, 0.24, 0.52, 0.8, 1], ease: ["easeOut", "easeOut", "easeInOut", "easeIn"] }}
-              className="ml-4 -mr-6"
+              className="ml-1 -mr-2 sm:ml-4 sm:-mr-6"
             >
               <Image
                 src={asset("/intro-1.png")}
@@ -222,8 +255,8 @@ export default function Home() {
             key={p}
             className="absolute hidden h-1.5 w-1.5 rounded-full bg-neonGreen/45 md:block"
             initial={{ x: `${Math.random() * 100}vw`, y: `${Math.random() * 100}vh`, opacity: 0.2 }}
-            animate={{ y: [null, `${Math.random() * 100}vh`], opacity: [0.2, 0.9, 0.2] }}
-            transition={{ repeat: Infinity, duration: 5 + Math.random() * 8, ease: "linear" }}
+            animate={reduceMotion ? { opacity: 0.2 } : { y: [null, `${Math.random() * 100}vh`], opacity: [0.2, 0.9, 0.2] }}
+            transition={reduceMotion ? { duration: 0 } : { repeat: Infinity, duration: 5 + Math.random() * 8, ease: "linear" }}
           />
         ))}
 
@@ -272,7 +305,11 @@ export default function Home() {
                     <p className="font-display text-lg font-bold">{track.title}</p>
                     <p className="text-xs uppercase tracking-[0.2em] text-white/60">SOY MATT</p>
                   </div>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-neonBlue/50 bg-neonBlue/10 text-neonBlue transition group-hover:scale-110">▶</span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-neonBlue/50 bg-neonBlue/10 text-neonBlue transition group-hover:scale-110">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
+                      <path d="M8 6v12l10-6-10-6Z" />
+                    </svg>
+                  </span>
                 </motion.a>
               ))}
             </div>
