@@ -96,10 +96,10 @@ export default function Home() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const particles = useMemo(() => Array.from({ length: isMobile ? 4 : 12 }, (_, i) => i), [isMobile]);
+  const particles = useMemo(() => Array.from({ length: isMobile ? 0 : 6 }, (_, i) => i), [isMobile]);
   const backgroundDots = useMemo(
     () =>
-      Array.from({ length: isMobile ? 50 : 90 }, (_, i) => ({
+      Array.from({ length: isMobile ? 24 : 40 }, (_, i) => ({
         id: i,
         left: Math.random() * 100,
         top: Math.random() * 100,
@@ -164,15 +164,11 @@ export default function Home() {
             key={dot.id}
             className="absolute rounded-full bg-[#00ffd0]"
             style={{ left: `${dot.left}%`, top: `${dot.top}%`, width: dot.size, height: dot.size }}
-            animate={
-              reduceMotion || isMobile
-                ? { opacity: 0.14, scale: 1 }
-                : { opacity: [0.05, 0.22, 0.05], scale: [0.92, 1.07, 0.92] }
-            }
+            animate={reduceMotion || isMobile ? { opacity: 0.14, scale: 1 } : { opacity: [0.08, 0.18, 0.08], scale: [0.98, 1.03, 0.98] }}
             transition={
               reduceMotion || isMobile
                 ? { duration: 0 }
-                : { duration: dot.duration, repeat: Infinity, delay: dot.delay }
+                : { duration: dot.duration + 2, repeat: Infinity, delay: dot.delay }
             }
           />
         ))}
@@ -238,8 +234,8 @@ export default function Home() {
       )}
 
       <section className="relative flex min-h-screen items-center justify-center px-4 py-14 md:px-6 md:py-16">
-        <motion.div style={{ y: glowY }} className="absolute -top-24 left-1/2 h-[24rem] w-[24rem] -translate-x-1/2 rounded-full bg-neonPink/12 blur-[145px]" />
-        <motion.div style={{ y: heroY }} className="absolute inset-0">
+        <motion.div style={{ y: isMobile || reduceMotion ? 0 : glowY }} className="absolute -top-24 left-1/2 h-[24rem] w-[24rem] -translate-x-1/2 rounded-full bg-neonPink/12 blur-[145px]" />
+        <motion.div style={{ y: isMobile || reduceMotion ? 0 : heroY }} className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1501612780327-45045538702b?q=80&w=1600&auto=format&fit=crop"
             alt="SoyMatt en escenario"
@@ -365,7 +361,7 @@ export default function Home() {
                     reelRefs.current[idx] = el;
                   }}
                   src={clip}
-                  autoPlay
+                  autoPlay={!isMobile}
                   muted={reelMuted[idx] ?? true}
                   loop
                   playsInline
