@@ -165,7 +165,7 @@ export default function Home() {
             transition={{ repeat: Infinity, duration: 2.6 }}
           />
           <motion.h1
-            className="relative z-10 flex items-center gap-3 font-display text-5xl font-extrabold tracking-[0.14em] md:text-8xl"
+            className="relative z-10 flex w-full items-center justify-center gap-2 px-6 text-center font-display text-4xl font-extrabold tracking-[0.12em] sm:gap-3 sm:text-5xl md:text-8xl"
             initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: [0, 1, 1, 0] }}
             transition={{ duration: 2.1, times: [0, 0.18, 0.62, 0.78], ease: "easeInOut" }}
@@ -188,7 +188,7 @@ export default function Home() {
             <span>ATT</span>
           </motion.h1>
           <motion.p
-            className="relative z-10 mt-6 text-sm uppercase tracking-[0.35em] text-white/75 md:text-base"
+            className="relative z-10 mt-5 max-w-[92vw] px-6 text-center text-[11px] uppercase tracking-[0.22em] text-white/75 sm:mt-6 sm:max-w-xl sm:text-sm sm:tracking-[0.3em] md:text-base md:tracking-[0.35em]"
             animate={{ opacity: [0, 1, 1, 0] }}
             transition={{ duration: 2.1, times: [0, 0.2, 0.62, 0.78], ease: "easeInOut" }}
           >
