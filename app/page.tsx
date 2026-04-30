@@ -65,12 +65,14 @@ export default function Home() {
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const [soundOn, setSoundOn] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [featuredMuted, setFeaturedMuted] = useState(true);
   const [reelMuted, setReelMuted] = useState<Record<number, boolean>>({
     0: true,
     1: true,
     2: true
   });
   const reelRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const featuredRef = useRef<HTMLVideoElement | null>(null);
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 1], [0, -250]);
   const glowY = useTransform(scrollYProgress, [0, 1], [0, -140]);
@@ -116,6 +118,16 @@ export default function Home() {
         void video.play();
       }
       return next;
+    });
+  };
+  const toggleFeaturedSound = () => {
+    setFeaturedMuted((prev) => {
+      const nextMuted = !prev;
+      if (featuredRef.current) {
+        featuredRef.current.muted = nextMuted;
+        void featuredRef.current.play();
+      }
+      return nextMuted;
     });
   };
 
@@ -407,14 +419,36 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/30 p-3">
+          <div className="relative rounded-2xl border border-white/10 bg-black/30 p-3">
             <video
+              ref={featuredRef}
               src={featuredClip}
-              controls
+              autoPlay
+              muted={featuredMuted}
+              loop
               playsInline
               preload="none"
               className="h-[340px] w-full rounded-xl object-cover sm:h-[420px]"
             />
+            <button
+              onClick={toggleFeaturedSound}
+              aria-label={featuredMuted ? "Activar sonido" : "Silenciar"}
+              className="absolute bottom-6 left-6 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/35 bg-black/65 text-white backdrop-blur transition hover:border-neonGreen hover:text-neonGreen"
+            >
+              {featuredMuted ? (
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                  <line x1="23" y1="9" x2="17" y2="15" />
+                  <line x1="17" y1="9" x2="23" y2="15" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                  <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+                  <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       </section>
