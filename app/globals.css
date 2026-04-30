@@ -22,9 +22,9 @@ body {
 body {
   font-family: var(--font-manrope), sans-serif;
   background-image:
-    radial-gradient(circle at 15% 20%, rgba(138, 122, 166, 0.12), transparent 28%),
-    radial-gradient(circle at 80% 10%, rgba(127, 149, 173, 0.14), transparent 30%),
-    radial-gradient(circle at 70% 80%, rgba(183, 132, 143, 0.1), transparent 35%);
+    radial-gradient(circle at 15% 20%, rgba(139, 57, 255, 0.16), transparent 28%),
+    radial-gradient(circle at 80% 10%, rgba(47, 107, 255, 0.2), transparent 30%),
+    radial-gradient(circle at 70% 80%, rgba(255, 46, 188, 0.12), transparent 35%);
   background-attachment: fixed;
 }
 
@@ -45,7 +45,7 @@ h4 {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 999px;
-  background: linear-gradient(180deg, #8a7aa6, #7f95ad, #b7848f);
+  background: linear-gradient(180deg, #8b39ff, #2f6bff, #ff2ebc);
 }
 
 .about-vibe {
@@ -59,19 +59,19 @@ h4 {
   0% {
     border-color: rgba(255, 255, 255, 0.16);
     box-shadow:
-      0 0 14px rgba(183, 132, 143, 0.1),
-      0 0 26px rgba(127, 149, 173, 0.09);
+      0 0 14px rgba(255, 46, 188, 0.12),
+      0 0 26px rgba(47, 107, 255, 0.1);
   }
   50% {
-    border-color: rgba(183, 132, 143, 0.35);
+    border-color: rgba(255, 46, 188, 0.48);
     box-shadow:
-      0 0 20px rgba(183, 132, 143, 0.22),
-      0 0 30px rgba(127, 149, 173, 0.18);
+      0 0 22px rgba(255, 46, 188, 0.3),
+      0 0 36px rgba(47, 107, 255, 0.25);
   }
   100% {
     border-color: rgba(255, 255, 255, 0.16);
     box-shadow:
-      0 0 14px rgba(183, 132, 143, 0.1),
-      0 0 26px rgba(127, 149, 173, 0.09);
+      0 0 14px rgba(255, 46, 188, 0.12),
+      0 0 26px rgba(47, 107, 255, 0.1);
   }
 }

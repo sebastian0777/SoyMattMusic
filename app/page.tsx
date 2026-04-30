@@ -99,7 +99,7 @@ export default function Home() {
         {backgroundDots.map((dot) => (
           <motion.span
             key={dot.id}
-            className="absolute rounded-full bg-[#7f95ad]"
+            className="absolute rounded-full bg-[#00ffd0]"
             style={{ left: `${dot.left}%`, top: `${dot.top}%`, width: dot.size, height: dot.size }}
             animate={{ opacity: [0.05, 0.22, 0.05], scale: [0.92, 1.07, 0.92] }}
             transition={{ duration: dot.duration, repeat: Infinity, delay: dot.delay }}
@@ -157,7 +157,7 @@ export default function Home() {
             priority
             className="object-cover opacity-65"
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(127,149,173,0.24),transparent_40%),radial-gradient(circle_at_80%_25%,rgba(183,132,143,0.16),transparent_35%),linear-gradient(180deg,rgba(5,5,7,0.35)_0%,#050507_92%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(47,107,255,0.3),transparent_40%),radial-gradient(circle_at_80%_25%,rgba(255,46,188,0.2),transparent_35%),linear-gradient(180deg,rgba(5,5,7,0.3)_0%,#050507_92%)]" />
         </motion.div>
 
         {particles.map((p) => (
