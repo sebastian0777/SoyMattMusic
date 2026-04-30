@@ -57,7 +57,7 @@ export default function Home() {
   const glowY = useTransform(scrollYProgress, [0, 1], [0, -140]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 4300);
+    const timer = setTimeout(() => setLoading(false), 2600);
     return () => clearTimeout(timer);
   }, []);
 
@@ -117,8 +117,8 @@ export default function Home() {
         <motion.section
           className="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-black"
           initial={{ opacity: 1 }}
-          animate={{ opacity: [1, 1, 1, 0] }}
-          transition={{ duration: 4.3, times: [0, 0.74, 0.92, 1], ease: "easeInOut" }}
+          animate={{ opacity: [1, 1, 0] }}
+          transition={{ duration: 2.6, times: [0, 0.88, 1], ease: "easeInOut" }}
           exit={{ opacity: 0 }}
         >
           <motion.div
@@ -129,14 +129,14 @@ export default function Home() {
           <motion.h1
             className="relative z-10 flex items-center gap-3 font-display text-5xl font-extrabold tracking-[0.14em] md:text-8xl"
             initial={{ scale: 0.85, opacity: 0 }}
-            animate={{ scale: 1, opacity: [0, 1, 1, 0.82] }}
-            transition={{ duration: 2.8, times: [0, 0.2, 0.72, 1] }}
+            animate={{ scale: 1, opacity: [0, 1, 1] }}
+            transition={{ duration: 1.8, times: [0, 0.2, 1] }}
           >
             <span>SOY</span>
             <motion.div
               initial={{ scale: 0.9 }}
-              animate={{ scale: [1, 1.2, 1.7, 9.5, 16] }}
-              transition={{ duration: 3.9, times: [0, 0.2, 0.48, 0.78, 1], ease: ["easeOut", "easeOut", "easeIn", "easeIn"] }}
+              animate={{ scale: [1, 1.16, 1.55, 6.8, 10.5] }}
+              transition={{ duration: 2.35, times: [0, 0.24, 0.52, 0.8, 1], ease: ["easeOut", "easeOut", "easeInOut", "easeIn"] }}
               className="ml-4 -mr-6"
             >
               <Image
@@ -156,8 +156,8 @@ export default function Home() {
           <motion.div
             className="pointer-events-none absolute inset-0 z-20 bg-white"
             initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0, 0.2, 1, 1, 1, 0] }}
-            transition={{ duration: 4.3, times: [0, 0.66, 0.74, 0.82, 0.9, 0.95, 1], ease: "easeInOut" }}
+            animate={{ opacity: [0, 0, 1, 1, 0] }}
+            transition={{ duration: 2.6, times: [0, 0.64, 0.78, 0.9, 1], ease: "easeInOut" }}
           />
         </motion.section>
       )}
